@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title>做人要对自己狠一点</title>
+    <style>
+      ul {
+        list-style: none;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      div {
+        width: 1150px;
+        height: 400px;
+        margin: 50px auto;
+        border: 1px solid red;
+        overflow: hidden;
+      }
+
+      div li {
+        width: 240px;
+        height: 400px;
+        float: left;
+        transition: width 300ms;
+      }
+
+      div ul {
+        width: 1300px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+  </body>
+  <script>
+    window.onload= function(){
+
+        let lis = document.querySelectorAll('#box li')
+        let box =document.querySelector('#box')
+      let arr  = ['./images/1.jpg','./images/2.jpg','./images/3.jpg','./images/1.jpg','./images/1.jpg',]
+      lis.forEach(function(e,i){
+          e.style.backgroundImage = 'url("./images/'+ (i+1) +'.jpg")';
+      })
+
+      lis.forEach(function(e){//给每一个li注册鼠标移入事件
+          e.onmouseover = function(){
+            //   console.log(1)
+              lis.forEach(function(ele,i){
+                //   console.log(ele)
+               lis[i].style.width = '100px';//给每一个
+              })
+              this.style.width = 800+'px'
+          }
+          
+      })
+
+      lis.forEach(function(e,i){
+          e.onmouseout = function(){
+            console.log(1)
+              lis.forEach(function(){
+                lis[i].style.width='240px'
+              })
+              
+          }
+      })
+
+    }
+  </script>
+</html>

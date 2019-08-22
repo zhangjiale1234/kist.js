@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      .box {
+        width: 450px;
+        height: 450px;
+        border: 1px solid #aaa;
+        position: relative;
+        top: 100px;
+        left: 100px;
+      }
+
+      .small {
+        width: 450px;
+        height: 450px;
+        position: absolute;
+      }
+
+      .mask {
+        position: absolute;
+        background-color: rgba(255, 255, 0, 0.3);
+        width: 225px;
+        height: 225px;
+        top: 0;
+        left: 0;
+        display: none;
+      }
+
+      .big {
+        width: 450px;
+        height: 450px;
+        border: 1px solid #aaa;
+        position: absolute;
+        left: 500px;
+        top: 0;
+        overflow: hidden;
+        display: none;
+      }
+
+      .big > img {
+        width: 900px;
+        height: 900px;
+        position: absolute;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box">
+      <div class="small">
+        <img src="./images/s.jpg" alt="" />
+        <div class="mask"></div>
+      </div>
+      <div class="big">
+        <img src="./images/big.jpg" alt="" />
+      </div>
+    </div>
+  </body>
+  <script>
+    /*
+  放大镜的效果：
+    1.鼠标移入，遮罩和大图同时显示
+    2.鼠标移动，遮罩移动，大图也会移动
+    3.鼠标移出，遮罩和大图消失
+*/
+    /* 鼠标移入移出，显示和隐藏 */
+    // 获取元素，注册(鼠标移入，鼠标移出)事件
+    let small = document.querySelector(".small");
+    let mask = document.querySelector(".mask");
+    let big = document.querySelector(".big");
+    let box = document.querySelector(".box");
+    let bigImg = document.querySelector('.big img')
+
+    small.onmouseover = function() {
+      mask.style.display = "block";
+      big.style.display = "block";
+    };
+    small.onmouseout = function() {
+      mask.style.display = "none";
+      big.style.display = "none";
+    };
+
+    //遮罩跟着鼠标走
+    box.onmousemove = function(e) {
+      // 遮罩位置= 鼠标位置-遮罩宽高的一半-盒子到页面边缘的距离
+      let x = e.pageX;//获取鼠标的横坐标
+      let y = e.pageY;//获取鼠标的纵坐标
+      let maskHrefWidth = mask.offsetWidth / 2;//遮罩的宽高的一半
+      let maskHrefHeight = mask.offsetHeight / 2;
+      let boxLeft = box.offsetLeft;
+      //因为子盒子和父盒子重合位置，算出父盒子到页面边缘的宽高距离
+      let boxTop = box.offsetTop;
+      
+      console.log(boxLeft, boxTop);
+
+      // 遮罩位置= 鼠标位置-遮罩宽高的一半-盒子到页面边缘的距离
+      let left = x - maskHrefWidth - boxLeft;
+      let top = y - maskHrefHeight - boxTop;
+
+        //判断如果left<=0;就是出界了，就设置最小为0
+      left = left <= 0 ? 0 : left;
+      top = top <= 0 ? 0 : top;
+
+      let maxRight = box.offsetWidth - mask.offsetWidth;
+      let maxBottom = box.offsetHeight - mask.offsetHeight;
+      left = left >= maxRight ? maxRight : left;
+      top = top >= maxBottom ? maxBottom : top;
+
+      mask.style.left = left + "px";
+      mask.style.top = top + "px";
+        let  bigImgMaxLeft = bigImg.offsetWidth-big.offsetWidth;
+        let bigImgMaxTop = bigImg.offsetHeight - big.offsetTop;
+        // console.log(bigImgMaxLeft)
+        let bigImgLeft = left*bigImgMaxLeft/maxRight
+        let bigImgTop = top*bigImgMaxTop/maxBottom/2
+        bigImg.style.left =-bigImgLeft+'px'
+        bigImg.style.top = -bigImgTop+'px'
+        
+      // console.log(maskHrefHeight,maskHrefWidth)
+      // console.log(x,y)
+    };
+  </script>
+</html>

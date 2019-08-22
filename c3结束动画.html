@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+    .box{
+        width: 200px;
+        height: 200px;
+        background-color: red;
+        transition: all 10s
+    }
+    .box:hover {
+        /* animation: change 1s 3; */
+        width: 100%;
+
+    }
+    /* @keyframes change{
+        from {
+            width: 200px;
+        }
+        to{
+            width: 400px;
+        }
+        
+    } */
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+</body>
+<script>
+  let box = document.querySelector('.box')
+
+  box.addEventListener('animationend',function(){
+      console.log(1)
+  })
+</script>
+</html>

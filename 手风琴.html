@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>做人要对自己狠一点</title>
+    <style>
+
+        ul {
+            list-style: none;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+
+        div {
+            width: 1150px;
+            height: 400px;
+            margin: 50px auto;
+            border: 1px solid red;
+            overflow: hidden;
+        }
+
+        div li {
+            width: 240px;
+            height: 400px;
+            float: left;
+            transition: width 300ms;
+        }
+
+        div ul {
+            width: 1300px;
+        }
+
+        
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+</body>
+<script>
+  let lis = document.querySelectorAll('#box li')
+  lis.forEach(function(e,i){
+    e.style.backgroundImage = 'url("./images/'+ (i+1) +'.jpg")';
+  })
+  lis.forEach(function(e){
+      e.onmouseover = function(){
+          lis.forEach(function(ele){
+            ele.style.width = '100px'
+          })
+          this.style.width = 800+'px'
+      }
+  })
+  lis.forEach(function(e,i){
+    e.onmouseout = function(){//给每个li注册鼠标移出事件
+        lis.forEach(function(ele){//还是那个问题，
+            ele.style.width = '240px'
+        })  
+    }
+  })
+</script>
+</html>
